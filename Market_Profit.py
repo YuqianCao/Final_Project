@@ -17,7 +17,7 @@ level_style = {'level1': '.',
                'level2': 'o',
                'level3': '^',
                'level4': '*',
-               'level5': '_'}
+               'level5': '|'}
 
 level_color = {'level1': 'red',
                'level2': 'blue',
@@ -56,7 +56,7 @@ class Company:
     def __init__(self,budget:int):
         self.budget = budget
     def getMaxamount(self,Market):
-        return self.budget/Market.getCost()
+        return int(self.budget/Market.getCost())
 
 
 def getMap(row:int, col:int, rich_area:list, poor_area:list):
@@ -159,6 +159,30 @@ def sizeProfitPlot(map,resident,company,possible_size,city_type):
     plt.savefig(city_type)
     plt.close('all')
 
+def levelProfitPlot(map,resident,company,size):
+    plt.cla
+    level_list = price_level.keys()
+    profit_uni = []
+    for level in level_list:
+        test_market = Market((0, 0), level, size)
+        loc = randomStoreLoc(map, company.getMaxamount(test_market), True)
+        markets_list = getMarkets(loc, level, size)
+        profit_uni.append(getTotalProfit(markets_list, resident))
+    plt.title('The Influence of Market Distribution')
+    plt.plot(level_list, profit_uni, "g+-", label="Uniform Distribution")
+    profit_rand = []
+    for level in level_list:
+        test_market = Market((0, 0), level, size)
+        loc = randomStoreLoc(map, company.getMaxamount(test_market), False)
+        markets_list = getMarkets(loc, level, size)
+        profit_rand.append(getTotalProfit(markets_list, resident))
+    plt.plot(level_list, profit_rand, 'r^-', label="Random Distribution")
+    plt.xlabel('Level Of Market')
+    plt.ylabel('Total Profit')
+    plt.legend()
+    plt.savefig('MarkerDistributionVsProfit')
+    plt.show()
+    plt.close('all')
 
 
 def main():
@@ -183,23 +207,9 @@ def main():
 
 
     # simulation for hypothesis two:
-    # simulation for random distribution
-    # random_loc = randomStoreLoc(cityMap, 10, False)
-    # rand_markets = getMarkets(random_loc,"level4",50)
-    # test = rand_markets[0]
-    # print(test.getCost())
-    #
-    # print(getTotalProfit(rand_markets, cityResident))
-    #
-    #
-    #
-    #
-    #
-    # # simulation for even distribution
-    # uniform_loc = randomStoreLoc(cityMap, 10, True)
-    # for i in [10,20,30,40,50]:
-    #     uni_markets = getMarkets(uniform_loc,"level3",i)
-    #     print(getTotalProfit(uni_markets,cityResident))
+    # simulation for random distribution and even distribution
+    levelProfitPlot(cityMap,cityResident,companyA,40)
+
 
 
 
@@ -208,13 +218,5 @@ def main():
 
 if __name__ == '__main__':
     main()
-#
-# market1 = Market((3,4),"level2",5)
-# lucy = Resident("median",(5,5))
-# print(lucy.purchase(market1.sell_price,market1.location))
-# store = (1,1)
-# print(market1.sell_price)
-# lucy = Resident(3,2)
-# print(lucy.purchase(market1.price))
 
 
