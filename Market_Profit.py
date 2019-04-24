@@ -104,6 +104,13 @@ def getResidents(map):
 
 
 def randomStoreLoc(map,amount:int,uniform:bool):
+    '''
+    Randomly generate the location of the markets on the map.
+    :param map: city map
+    :param amount: the number of markets to be generated
+    :param uniform: bool type, true means make the stores uniform distributed among the city
+    :return: a list of market location
+    '''
     map_row = map.shape[0]
     map_col = map.shape[1]
     map_size = map.size
