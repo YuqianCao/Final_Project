@@ -2,7 +2,6 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 
-np.random.seed(5902019)
 
 price_level = {'level1': 5,
                'level2': 15,
@@ -61,6 +60,14 @@ class Company:
 
 
 def getMap(row:int, col:int, rich_area:list, poor_area:list):
+    '''
+    This function allow users to create a city map by input the city size and the location of wealthy area and poor area.
+    :param row: The rows of the entire city
+    :param col: The columns of the entire city
+    :param rich_area: a list, contains the start point and end point of wealthy area.
+    :param poor_area: a list, contains the start point and end point of poor area.
+    :return: a map of a city
+    '''
     map = np.ones([row, col], dtype=int)
     rich_start = rich_area[0]
     rich_end = rich_area[1]
@@ -72,6 +79,11 @@ def getMap(row:int, col:int, rich_area:list, poor_area:list):
 
 
 def getResidents(map):
+    '''
+    Assume that we already have a map of a city, this function will generate a list of Resident according to your map.
+    :param map: The map of the city
+    :return: a list of Resident objects
+    '''
     resident_list = []
     map_row = map.shape[0]
     map_col = map.shape[1]
@@ -209,8 +221,6 @@ def main():
     # simulation for hypothesis two:
     # simulation for random distribution and even distribution
     levelProfitPlot(cityMap,cityResident,companyA,40)
-
-
 
 
 

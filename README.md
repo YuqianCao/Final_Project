@@ -11,8 +11,8 @@ There are many factors may influence the profit of a supermarket. For instance, 
 
 ### Preconditions: 
 1. In my simulation, the map of a city is in a rectangular shape. User can input the city's rows and columns to create a city map. 
-2. We assume that each element in the map array has a corresponding resident. The income level of each household is demonstrate by the value of the element.   
-    0: Low income level househol
+2. We assume that each element in the map array has a corresponding resident. The income level of each household is demonstrated by the value of the element.   
+    0: Low income level household
     1: Average income level household
     2: High income level household
 3. For each resident, they have a shopping budget which is related to their income. And for each market, it has a average selling price. Residents are willing to shop in the market only if the selling price is lower or equal to their budget.
@@ -20,5 +20,5 @@ There are many factors may influence the profit of a supermarket. For instance, 
 
 ### Hypotheses: 
 
-1. The best size and amount of supermarkets to be started is related to the population and income level.
+1. The best size and number of supermarkets to be started is related to the population and income level.
 2. Making the markets evenly distributed throughout the city is more profitable.
