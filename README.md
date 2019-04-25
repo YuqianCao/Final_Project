@@ -1,7 +1,4 @@
-# Final_Project
-IS590PR Spring 2019. Top-level repository for student project forks
-
-The detailed instructions for the Final Projects will be in the course Moodle.
+# Market Profit Simulation
 
 ### Team Member:
 Yuqian Cao (NetID: yuqianc3) 
@@ -22,3 +19,5 @@ There are many factors may influence the profit of a supermarket. For instance, 
 
 1. The best size and number of supermarkets to be started is related to the population and income level.
 2. Making the markets evenly distributed throughout the city is more profitable.
+
+
