@@ -139,6 +139,13 @@ def randomStoreLoc(map,amount:int,uniform:bool):
     return store_loc_list
 
 def getMarkets(store_loc_list,level,size):
+    '''
+    Given a list of store location, this function will automatically generate corresponding Market class
+    :param store_loc_list: the list of store location
+    :param level: the level of stores to be generated
+    :param size: the size of markets
+    :return: a list of Market objects
+    '''
     market_list = []
     for loc in store_loc_list:
         new_market = Market(loc,level,size)
@@ -147,6 +154,12 @@ def getMarkets(store_loc_list,level,size):
 
 
 def getCustAmount(Market:object,resident_list:list):
+    """
+    For specific market, given a list of Resident objects, this function will calculate the amount of residents that will purchase in this market.
+    :param Market: the target market object
+    :param resident_list: the list of Resident object
+    :return: the number of customers
+    """
     cust_num = 0
     for row in resident_list:
         for resident in row:
@@ -155,6 +168,12 @@ def getCustAmount(Market:object,resident_list:list):
     return cust_num
 
 def getTotalProfit(market_list, resident_list):
+    '''
+    Given a list of Market object and a list of Resident object, this function will calculate the total profit of all the markets
+    :param market_list: a list of Market object
+    :param resident_list: a list of Resident object
+    :return: the amount of total profit
+    '''
     total_profit = 0
     for market in market_list:
         cust_num = getCustAmount(market,resident_list)
@@ -163,6 +182,15 @@ def getTotalProfit(market_list, resident_list):
     return total_profit
 
 def sizeProfitPlot(map,resident,company,possible_size,city_type):
+    '''
+
+    :param map:
+    :param resident:
+    :param company:
+    :param possible_size:
+    :param city_type:
+    :return:
+    '''
     plt.cla
     for level in price_level:
         profit = []
