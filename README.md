@@ -21,3 +21,5 @@ There are many factors may influence the profit of a supermarket. For instance, 
 2. Making the markets evenly distributed throughout the city is more profitable.
 
 
+### Conclution:
+From the plot I generated, I noticed that the overall income level of the city do have influence on the profit. For the richest city, 
