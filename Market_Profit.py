@@ -281,7 +281,6 @@ def levelProfitPlot(map,resident,company,size):
     plt.close('all')
 
 
-
 def main():
 
     companyA = Company(15000)
@@ -306,7 +305,6 @@ def main():
     # simulation for hypothesis two:
     # simulation for random distribution and even distribution
     levelProfitPlot(cityMap,cityResident,companyA,40)
-
 
 
 if __name__ == '__main__':
