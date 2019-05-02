@@ -27,64 +27,6 @@ level_color = {'level1': 'red',
                'level4': 'grey',
                'level5': 'orange'}
 
-# def getCustAmount(Market: object, resident_list: list):
-#     """
-#     For specific market, given a list of Resident objects, this function will calculate the amount of residents that will purchase in this market.
-#     :param Market: the target market object
-#     :param resident_list: the list of Resident object
-#     :return: the number of customers
-#     """
-#     cust_num = [0]  # because list is threading safe, and will be shared by all threads. int is not like this.
-#
-#     def calculate_resident(cust_num, row):
-#         for resident in row:
-#             if resident.purchase(Market.sell_price, Market.location, Market.size):
-#                 cust_num[0] += 1
-#
-#     tasks = list()
-#     for row in resident_list:
-#         tasks.append(threading.Thread(target=calculate_resident, args=(cust_num, row)))
-#     for t in tasks:
-#         t.start()
-#     for t in tasks:
-#         t.join()
-#     return cust_num[0]
-#
-#
-# def getResidents(map):
-#     '''
-#     Assume that we already have a map of a city, this function will generate a list of Resident according to your map.
-#     :param map: The map of the city
-#     :return: a list of Resident objects
-#     '''
-#     resident_list = []
-#     map_row = map.shape[0]
-#     map_col = map.shape[1]
-#
-#     tasks = list()
-#
-#     def handle_column(map, i, resident_list):
-#         row_list = list()
-#         for j in range(0, map_col):
-#             if map[i][j] == 2:
-#                 resident = Resident('high', (i, j))
-#                 row_list.append(resident)
-#             elif map[i][j] == 1:
-#                 resident = Resident('median', (i, j))
-#                 row_list.append(resident)
-#             else:
-#                 resident = Resident('low', (i, j))
-#                 row_list.append(resident)
-#         resident_list.append(row_list)
-#
-#     for i in range(0, map_row):
-#         tasks.append(target=handle_column, args=(map, i, resident_list))
-#     for t in tasks:
-#         t.start()
-#     for t in tasks:
-#         t.join()
-#     return resident_list
-
 
 
 class Market:
@@ -129,6 +71,13 @@ def getMap(row:int, col:int, rich_area:list, poor_area:list):
     :param rich_area: a list, contains the start point and end point of wealthy area.
     :param poor_area: a list, contains the start point and end point of poor area.
     :return: a map of a city
+    >>> getMap((1, 1, [[0, 0], [0, 0]], [[0, 0], [0, 0]]))
+    [[0]]
+    >>> getMap(getMap(4, 5, [[1, 2], [3, 4]], [[7, 8], [8, 8]]))
+    [[1 1 1 1 1]
+     [1 1 2 2 2]
+     [1 1 2 2 2]
+     [1 1 2 2 2]]
     '''
     map = np.ones([row, col], dtype=int)
     rich_start = rich_area[0]
@@ -172,6 +121,15 @@ def randomStoreLoc(map,amount:int,uniform:bool):
     :param amount: the number of markets to be generated
     :param uniform: bool type, true means make the stores uniform distributed among the city
     :return: a list of market location
+    >>> test_map =  getMap(10, 10, [[0, 0], [0, 0]], [[0, 0], [0, 0]])
+    >>> test_map.size
+    100
+    >>> test_Resident = getResidents(test_map)
+    >>> test_market = Market((0, 0), "level2", 40)
+    >>> amount = 40
+    >>> store_list = randomStoreLoc(test_map,amount,True)
+    >>> len(store_list)
+    40
     '''
     map_row = map.shape[0]
     map_col = map.shape[1]
@@ -207,6 +165,15 @@ def getMarkets(store_loc_list,level,size):
     :param level: the level of stores to be generated
     :param size: the size of markets
     :return: a list of Market objects
+    >>> test_map =  getMap(10, 10, [[0, 0], [0, 0]], [[0, 0], [0, 0]])
+    >>> test_map.size
+    100
+    >>> test_Resident = getResidents(test_map)
+    >>> test_market = Market((0, 0), "level2", 40)
+    >>> amount = 50
+    >>> store_list = randomStoreLoc(test_map,amount,True)
+    >>> len(getMarkets(store_list), "level2", 40)
+    50
     '''
     market_list = []
     for loc in store_loc_list:
@@ -221,6 +188,11 @@ def getCustAmount(Market:object,resident_list:list):
     :param Market: the target market object
     :param resident_list: the list of Resident object
     :return: the number of customers
+    >>> test_map = getMap(10, 10, [[0, 0], [0, 0]], [[0, 0], [0, 0]])
+    >>> test_Resident = getResidents(test_map)
+    >>> test_market = Market((0, 0), "level2", 40)
+    >>> getCustAmount(test_market, test_resident) <= test_map.size
+    True
     """
     cust_num = 0
     for row in resident_list:
@@ -245,12 +217,12 @@ def getTotalProfit(market_list, resident_list):
 
 def sizeProfitPlot(map,resident,company,possible_size,city_type):
     '''
-
-    :param map:
-    :param resident:
-    :param company:
-    :param possible_size:
-    :param city_type:
+    This function will generate a line plot which demonstrate the relationship between the size of supermarket and the total profit.
+    :param map: The city map
+    :param resident: a list of resident object
+    :param company: a company object
+    :param possible_size: a list of possible size
+    :param city_type: the type of the city, used to generated the name of the x-axis of the plot.
     :return:
     '''
     plt.cla
@@ -270,6 +242,14 @@ def sizeProfitPlot(map,resident,company,possible_size,city_type):
     plt.close('all')
 
 def levelProfitPlot(map,resident,company,size):
+    '''
+    Given a map and a list of residents, this function will generate a plot that demonstrated the relationship between the distribution style, market level and the total profit.
+    :param map: The map of the city
+    :param resident: a list of Resident object
+    :param company: a company object
+    :param size: the size of the market
+    :return:
+    '''
     plt.cla
     level_list = price_level.keys()
     profit_uni = []
@@ -292,11 +272,8 @@ def levelProfitPlot(map,resident,company,size):
         avg_pro = pro_sum/times
         return avg_pro
 
-#
-
     for level in level_list:
         profit_rand.append(random_test(level,size,100))
-
     plt.plot(level_list, profit_rand, 'r^-', label="Random Distribution")
     plt.xlabel('Level Of Market')
     plt.ylabel('Total Profit')
