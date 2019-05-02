@@ -292,6 +292,7 @@ def levelProfitPlot(map,resident,company,size):
         avg_pro = pro_sum/times
         return avg_pro
 
+
     for level in level_list:
         profit_rand.append(random_test(level,size,100))
 
