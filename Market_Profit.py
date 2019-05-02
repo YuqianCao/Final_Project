@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import threading
 
 
-
 price_level = {'level1': 5,
                'level2': 15,
                'level3': 30,
@@ -235,8 +234,8 @@ def sizeProfitPlot(map,resident,company,possible_size,city_type):
             profit.append(getTotalProfit(rand_markets, resident))
         plt.title('Relationship Between Size and Profit')
         plt.plot(possible_size,profit,marker=level_style[level],color=level_color[level],label=level)
-    plt.xlabel('Size of market')
-    plt.ylabel('Profit')
+    plt.xlabel('Size of market(persons)')
+    plt.ylabel('Profit($)')
     plt.legend()
     plt.savefig(city_type)
     plt.close('all')
@@ -276,7 +275,7 @@ def levelProfitPlot(map,resident,company,size):
         profit_rand.append(random_test(level,size,100))
     plt.plot(level_list, profit_rand, 'r^-', label="Random Distribution")
     plt.xlabel('Level Of Market')
-    plt.ylabel('Total Profit')
+    plt.ylabel('Total Profit($)')
     plt.legend()
     plt.savefig('MarkerDistributionVsProfit')
     plt.close('all')
