@@ -1,13 +1,15 @@
 import math
 import numpy as np
 import matplotlib.pyplot as plt
+import threading
+
 
 
 price_level = {'level1': 5,
                'level2': 15,
                'level3': 30,
                'level4': 50,
-               'level5': 100}
+               'level5': 80}
 
 income_level = {"low": 300,
                 "median": 1000,
@@ -24,6 +26,66 @@ level_color = {'level1': 'red',
                'level3': 'green',
                'level4': 'grey',
                'level5': 'orange'}
+
+# def getCustAmount(Market: object, resident_list: list):
+#     """
+#     For specific market, given a list of Resident objects, this function will calculate the amount of residents that will purchase in this market.
+#     :param Market: the target market object
+#     :param resident_list: the list of Resident object
+#     :return: the number of customers
+#     """
+#     cust_num = [0]  # because list is threading safe, and will be shared by all threads. int is not like this.
+#
+#     def calculate_resident(cust_num, row):
+#         for resident in row:
+#             if resident.purchase(Market.sell_price, Market.location, Market.size):
+#                 cust_num[0] += 1
+#
+#     tasks = list()
+#     for row in resident_list:
+#         tasks.append(threading.Thread(target=calculate_resident, args=(cust_num, row)))
+#     for t in tasks:
+#         t.start()
+#     for t in tasks:
+#         t.join()
+#     return cust_num[0]
+#
+#
+# def getResidents(map):
+#     '''
+#     Assume that we already have a map of a city, this function will generate a list of Resident according to your map.
+#     :param map: The map of the city
+#     :return: a list of Resident objects
+#     '''
+#     resident_list = []
+#     map_row = map.shape[0]
+#     map_col = map.shape[1]
+#
+#     tasks = list()
+#
+#     def handle_column(map, i, resident_list):
+#         row_list = list()
+#         for j in range(0, map_col):
+#             if map[i][j] == 2:
+#                 resident = Resident('high', (i, j))
+#                 row_list.append(resident)
+#             elif map[i][j] == 1:
+#                 resident = Resident('median', (i, j))
+#                 row_list.append(resident)
+#             else:
+#                 resident = Resident('low', (i, j))
+#                 row_list.append(resident)
+#         resident_list.append(row_list)
+#
+#     for i in range(0, map_row):
+#         tasks.append(target=handle_column, args=(map, i, resident_list))
+#     for t in tasks:
+#         t.start()
+#     for t in tasks:
+#         t.join()
+#     return resident_list
+
+
 
 class Market:
     def __init__(self, location, level:str, size:int):
@@ -219,11 +281,20 @@ def levelProfitPlot(map,resident,company,size):
     plt.title('The Influence of Market Distribution')
     plt.plot(level_list, profit_uni, "g+-", label="Uniform Distribution")
     profit_rand = []
+
+    def random_test(level, size, times):
+        pro_sum = 0
+        for count in range(times):
+            test_market = Market((0, 0), level, size)
+            loc = randomStoreLoc(map, int(company.getMaxamount(test_market)), False)
+            markets_list = getMarkets(loc, level, size)
+            pro_sum += getTotalProfit(markets_list, resident)
+        avg_pro = pro_sum/times
+        return avg_pro
+
     for level in level_list:
-        test_market = Market((0, 0), level, size)
-        loc = randomStoreLoc(map, int(company.getMaxamount(test_market)), False)
-        markets_list = getMarkets(loc, level, size)
-        profit_rand.append(getTotalProfit(markets_list, resident))
+        profit_rand.append(random_test(level,size,100))
+
     plt.plot(level_list, profit_rand, 'r^-', label="Random Distribution")
     plt.xlabel('Level Of Market')
     plt.ylabel('Total Profit')
