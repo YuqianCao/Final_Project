@@ -304,6 +304,7 @@ def levelProfitPlot(map,resident,company,size):
     plt.close('all')
 
 
+
 def main():
 
     companyA = Company(15000)
