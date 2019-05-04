@@ -28,13 +28,13 @@ Randomized Variable: market level, Store distribution style
 Hypothesis one:  
 
 ![image](poorCity.png)
-<p align="center">Simulation Result for Low-income City</p>  
+<p align="center">p1.1 Simulation Result for Low-income City</p>  
 
 ![image](averageCity.png)
-<p align="center">Simulation Result for Average-income City</p>
+<p align="center">p1.2 Simulation Result for Average-income City</p>
 
 ![image](richCity.png)
-<p align="center">Simulation Result for High-income City</p>
+<p align="center">p1.3 Simulation Result for High-income City</p>
 
 According to the plot I generated, I noticed that the overall income level of the city do have influence on the profit. Generally speaking, the richer the city is, the more the total profit. 
 For the richest city, we could see that almost all lines are approaching a profit of $10000(which is also the upper limitation for this simulation). The only exception is the yellow line, which represent the store with the highest selling price. Although the yellow line is unstable, in most cases, it's still above $0. Thus we may conclude that starting a market business in a wealthy city will bring the company the most profit and the least risk of deficit.
@@ -43,6 +43,6 @@ For the average city and low-income city, we may notice that the worse the finan
 
 Hypothesis two:  
 ![image](MarkerDistributionVsProfit.png)  
-<p align="center">Simulation Result for Market Distribution</p>
+<p align="center">p2.1 Simulation Result for Market Distribution</p>
 For the second hypothesis, I generated two different kinds of store location criteria. For the uniform distribution style, the distance between every two nearest stores are the same. For the randomly distribution style, the distance between store and store can varies.
 According our simulation result, these two kind of distribution style have a similar trend(decrease -> increase -> decrease). Sometimes the uniform distribution have a better performance sometimes the randomly distribution does better. When the level of market relatively low(level1 or level2), these two style almost have the same performance. This can be explained by, when the product price is relatively low, no matter where the store locates, residents who live near them will definitely willing to make some purchase, so the market can earn the max profit. 
