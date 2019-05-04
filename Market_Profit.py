@@ -30,26 +30,56 @@ level_color = {'level1': 'red',
 
 class Market:
     def __init__(self, location, level:str, size:int):
+        '''
+        Each Market object represents the basic info and the profit of the corresponding market.
+        :param location: the location coordinate of a certain market
+        :param level: the price level of the Market. From level1 to level5. The higher the level, the more expensive it is.
+        :param size: the maximum capacity of the market
+        '''
         self.location = location
         self.buy_price = price_level[level]
         self.sell_price = self.buy_price * 2
         self.size = size
         self.level = level
     def getCost(self):
+        '''
+        :return: the total cost for running the store, including stock with goods and hiring fee.
+        '''
         return self.buy_price * self.size * 1.2
     def getProfit(self, cust_num):
+        '''
+        :param cust_num: the number of the customer that will purchase in this market
+        :return: the total profit for running this store (calculate by income - cost)
+        '''
         return self.sell_price * min(cust_num,self.size) - self.getCost()
 
 
 class Resident:
     def __init__(self, level:str, home_loc):
+        '''
+        :param level: the income level for the resident, could be low, median or high.
+        :param home_loc: the coordinate of the resident's home
+        '''
         self.income = income_level[level]
         self.home_loc = home_loc
     def getBudget(self):
+        '''
+        :return: the maximum shopping budget that the resident can afford.
+        '''
         return self.income/10
     def getDistance(self, location):
+        '''
+        :param location: the location coordinate of a certain market
+        :return: the distance between the resident's home to the market
+        '''
         return math.sqrt(np.square(self.home_loc[0] - location[0]) + np.square(self.home_loc[1] - location[1]))
     def purchase(self, price, location, size):
+        '''
+        :param price: the average selling price of a certain market
+        :param location: the location coordinate of a certain market
+        :param size: the maximum capacity of a certain market
+        :return: whether the resident would purchase in the certain market. "True" represents the resident will purchase goods, vice versa.
+        '''
         if self.getBudget() >= price and self.getDistance(location) <= math.sqrt(size):
             return True
         else:
@@ -57,8 +87,16 @@ class Resident:
 
 class Company:
     def __init__(self,budget:int):
+        '''
+        :param budget: the total budget of this company
+        '''
         self.budget = budget
     def getMaxamount(self,Market):
+        '''
+        Given a certain Market object, we will calculate according to the company's budget, how many markets with the same size and level can be started at most.
+        :param Market: a certain market object
+        :return: the upper limitation of the number of the markets that could be started by the company.
+        '''
         return self.budget/Market.getCost()
 
 
