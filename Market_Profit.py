@@ -77,6 +77,9 @@ def getMap(row:int, col:int, rich_area:list, poor_area:list):
      [1 1 2 2 2]
      [1 1 2 2 2]
      [1 1 2 2 2]]
+    >>> test_map = getMap(getMap(70, 80, [[1, 2], [3, 4]], [[7, 8], [8, 8]]))
+    >>> test_map.size
+    5600
     '''
     map = np.ones([row, col], dtype=int)
     rich_start = rich_area[0]
@@ -93,6 +96,10 @@ def getResidents(map):
     Assume that we already have a map of a city, this function will generate a list of Resident according to your map.
     :param map: The map of the city
     :return: a list of Resident objects
+    >>> test_map =  getMap(10, 10, [[0, 0], [0, 0]], [[0, 0], [0, 0]])
+    >>> test_Resident = getResidents(test_map)
+    >>> len(test_Resident) == test_map.size
+    True
     '''
     resident_list = []
     map_row = map.shape[0]
@@ -287,6 +294,7 @@ def main():
     city_row = 100
     city_col = 100
     cityMap = getMap(city_row, city_col, [[0, 0], [40, 40]], [[60, 60], [99, 99]])
+    # Generate a city (average income) map with 100 rows and 100 columns, rich area is from (0,0) to (40,40), low-income area is from (60,60) to (99,99)
     rich_cityMap = getMap(city_row, city_col, [[0, 0], [70, 70]], [[90, 90], [99, 99]])
     poor_cityMap = getMap(city_row, city_col, [[0, 0], [10, 10]], [[30, 30], [99, 99]])
     cityResident = getResidents(cityMap)
