@@ -26,6 +26,9 @@ Randomized Variable: market level, Store distribution style
 
 ### Conclution:
 Hypothesis one:
+![image](poorCity.png)
+<p align="center">Simulation Result for Low-income City</p>
+
 According to the plot I generated, I noticed that the overall income level of the city do have influence on the profit. Generally speaking, the richer the city is, the more the total profit. 
 For the richest city, we could see that almost all lines are approaching a profit of $10000(which is also the upper limitation for this simulation). The only exception is the yellow line, which represent the store with the highest selling price. Although the yellow line is unstable, in most cases, it's still above $0. Thus we may conclude that starting a market business in a wealthy city will bring the company the most profit and the least risk of deficit.
 For the average city and low-income city, we may notice that the worse the finance status, the more unstable the profit line. We can also see that in both of these two kind of cities, running a expensive store will take a great risk of deficit. (In this simulation, the deficit floor is -$10000.) 
